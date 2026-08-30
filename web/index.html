@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MasalaMart — Agentic Storefront · Razorpay Buildathon Track 01</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛵</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-logo">🛵</span>
+      <div>
+        <h1>MasalaMart <span class="brand-sub">· agentic storefront</span></h1>
+        <p class="tagline">Sold to humans and AI agents alike — every money move explainable, bounded, gated.</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="chips" id="config-chips"></div>
+      <button id="verify-btn" class="btn btn-ghost" title="Recompute the hash chain over the audit ledger">🔍 Verify ledger</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ── Catalog ─────────────────────────────────────────────────── -->
+    <section class="panel catalog-panel">
+      <div class="panel-head">
+        <h2>Catalog</h2>
+        <a href="/catalog.json" target="_blank" class="feed-link" title="The machine-readable catalog AI buyers ingest">agent-readable feed ↗</a>
+      </div>
+      <div class="catalog" id="catalog"></div>
+    </section>
+
+    <!-- ── Chat + checkout ─────────────────────────────────────────── -->
+    <section class="panel chat-panel">
+      <div class="panel-head">
+        <h2>Growth Agent</h2>
+        <span class="pill pill-soft" id="nlu-badge">NLU: rules</span>
+      </div>
+      <div class="chat-scroll" id="chat"></div>
+      <div class="suggestions" id="suggestions"></div>
+
+      <div class="cart-card" id="cart-card">
+        <div class="cart-lines" id="cart-lines"><p class="muted">Cart is empty.</p></div>
+        <div class="cart-math" id="cart-math"></div>
+        <div class="cart-actions" id="cart-actions">
+          <button id="checkout-btn" class="btn btn-primary" disabled>Checkout</button>
+        </div>
+        <div class="pay-box hidden" id="pay-box">
+          <p class="pay-title" id="pay-title"></p>
+          <label class="demo-toggle"><input type="checkbox" id="force-fail" /> Force decline (demo the failure path)</label>
+          <button id="pay-btn" class="btn btn-pay">Pay now</button>
+          <p class="muted small">This click is the confirmation gate — the agent cannot press it for you.</p>
+        </div>
+      </div>
+
+      <form class="chat-input" id="chat-form">
+        <input id="chat-text" type="text" autocomplete="off" placeholder="Try: gift under 500 · add 2 masala chai · what pairs with coffee?" />
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- ── Audit trail ─────────────────────────────────────────────── -->
+    <section class="panel audit-panel">
+      <div class="panel-head">
+        <h2>Audit Trail</h2>
+        <span class="pill" id="chain-status">…</span>
+      </div>
+      <details class="demo-controls">
+        <summary>🎬 Demo controls (judge scenarios)</summary>
+        <div class="demo-grid">
+          <button id="demo-stock" class="btn btn-ghost small">👋 Another buyer takes the hamper</button>
+          <button id="demo-campaign" class="btn btn-ghost small">📣 Run cart-recovery campaign</button>
+          <button id="demo-tamper" class="btn btn-ghost small">🧨 Tamper with ledger</button>
+          <button id="demo-reset" class="btn btn-ghost small">♻️ Reset session</button>
+        </div>
+      </details>
+      <div class="audit-filters">
+        <button class="chip-filter active" data-filter="all">All</button>
+        <button class="chip-filter" data-filter="money">Money</button>
+        <button class="chip-filter" data-filter="refused">Refused / failed</button>
+      </div>
+      <div class="audit-scroll" id="audit"></div>
+    </section>
+  </main>
+
+  <dialog id="receipt-dialog">
+    <div class="dialog-head">
+      <h3>Receipt <span class="muted small" id="receipt-id"></span></h3>
+      <button class="btn btn-ghost" onclick="document.getElementById('receipt-dialog').close()">Close</button>
+    </div>
+    <pre id="receipt-json" class="receipt-pre"></pre>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

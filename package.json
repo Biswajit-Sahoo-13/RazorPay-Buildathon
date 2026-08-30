@@ -1,0 +1,27 @@
+{
+  "name": "masalamart-agentic-storefront",
+  "version": "1.0.0",
+  "description": "Razorpay Buildathon Track 01 — AI Growth & Agentic Commerce. An agent that grows merchant revenue and makes the merchant transactable by AI buyers, with every money action explainable, bounded and gated.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test test/",
+    "smoke": "node scripts/smoke.js",
+    "client:install": "cd client && npm install",
+    "client:build": "cd client && npm run build"
+  },
+  "keywords": [
+    "razorpay",
+    "buildathon",
+    "agentic-commerce",
+    "ACP",
+    "AP2",
+    "x402",
+    "UAP"
+  ],
+  "license": "MIT"
+}

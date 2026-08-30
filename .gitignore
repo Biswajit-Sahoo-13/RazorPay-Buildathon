@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Build output (rebuild with: npm run client:build)
+client/dist/
+
+# Environment & secrets
+.env
+.env.local
+
+# Runtime data (audit ledger mirrors, scratch state)
+data/*.jsonl
+data/*.json
+
+# Logs & OS noise
+*.log
+.DS_Store
+Thumbs.db
