@@ -1,12 +1,12 @@
 import { Store, ArrowUpRight } from 'lucide-react';
-import { inr } from '../api.js';
+import { inr, initials } from '../api.js';
 
 function Product({ p, onAdd }) {
   const stockCls = p.stock === 0 ? 'out' : p.stock <= 5 ? 'low' : '';
   const stockTxt = p.stock === 0 ? 'Sold out' : p.stock <= 5 ? `Only ${p.stock} left` : `${p.stock} in stock`;
   return (
     <div className="product">
-      <div className="tile">{p.emoji}</div>
+      <div className="tile mono-tile">{initials(p.title)}</div>
       <div>
         <h3>{p.title}</h3>
         <p className="desc">{p.description}</p>

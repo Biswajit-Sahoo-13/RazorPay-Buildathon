@@ -1,4 +1,4 @@
-import { ShieldCheck, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, Store } from 'lucide-react';
 import { inr } from '../api.js';
 
 export default function TopBar({ config, chain, onVerify }) {
@@ -6,7 +6,7 @@ export default function TopBar({ config, chain, onVerify }) {
   return (
     <header className="topbar">
       <div className="brand">
-        <div className="brand-mark">🛵</div>
+        <div className="brand-mark"><Store size={21} /></div>
         <div>
           <h1>
             MasalaMart <span className="sub">· agentic storefront</span>

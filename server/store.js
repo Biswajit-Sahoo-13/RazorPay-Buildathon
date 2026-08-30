@@ -101,7 +101,7 @@ export function createStore() {
   function computeTotals(session) {
     const items = Object.entries(session.cart).map(([sku, qty]) => {
       const p = product(sku);
-      return { sku, title: p.title, emoji: p.emoji, qty, pricePaise: p.pricePaise, linePaise: p.pricePaise * qty };
+      return { sku, title: p.title, qty, pricePaise: p.pricePaise, linePaise: p.pricePaise * qty };
     });
     const subtotalPaise = items.reduce((s, i) => s + i.linePaise, 0);
     const { discountPaise, clamps } = computeCouponDiscount(session);

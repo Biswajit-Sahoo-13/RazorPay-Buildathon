@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Bot, User, ShoppingCart, Lock, CheckCircle2, XCircle, AlertTriangle, Ban, Sparkles, MessageSquare } from 'lucide-react';
-import { inr, renderMd } from '../api.js';
+import { inr, renderMd, initials } from '../api.js';
 
 const STATUS_ICON = {
   ok: <CheckCircle2 />,
@@ -22,7 +22,7 @@ function ActionChip({ intent, via, status }) {
 function ProposalCard({ p, onAdd }) {
   return (
     <div className="proposal">
-      <div className="tile">{p.emoji}</div>
+      <div className="tile mono-tile">{initials(p.title)}</div>
       <div>
         <h4>{p.title} — {inr(p.pricePaise)}</h4>
         <p className="pitch">{p.pitch}</p>
@@ -71,7 +71,7 @@ function CartPanel({ state, token, onCheckout, onPay }) {
           <div className="cart-lines">
             {t.items.map((i) => (
               <div className="cl" key={i.sku}>
-                <span className="t">{i.qty} × {i.emoji} {i.title}</span>
+                <span className="t">{i.qty} × {i.title}</span>
                 <span className="v">{inr(i.linePaise)}</span>
               </div>
             ))}

@@ -31,7 +31,7 @@ export function createLoop({ tools, store, llm }) {
   function cartSummary(session) {
     const t = store.computeTotals(session);
     if (!t.items.length) return { ok: true, status: 'ok', message: 'Your cart is empty. Say "find tea" or "gift under 500" to start.' };
-    const lines = t.items.map((i) => `• ${i.qty} × ${i.emoji} ${i.title} — ${formatINR(i.linePaise)}`).join('\n');
+    const lines = t.items.map((i) => `• ${i.qty} × ${i.title} — ${formatINR(i.linePaise)}`).join('\n');
     const discount = t.discountPaise ? `\nDiscount (${t.couponCode}): −${formatINR(t.discountPaise)}` : '';
     return {
       ok: true,

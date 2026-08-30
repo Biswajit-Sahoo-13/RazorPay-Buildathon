@@ -1,4 +1,4 @@
-# 🛵 MasalaMart — Agentic Storefront
+# MasalaMart — Agentic Storefront
 
 **Razorpay Buildathon · Track 01 — AI Growth & Agentic Commerce**
 
@@ -56,7 +56,7 @@ Everything in the chat goes through the same guarded tool pipeline — there is 
 | *(press the green Pay button)* | The only way money moves — the click is the confirmation gate |
 | `what's in my cart?` · `remove the cookies` · `reset` | Cart inspection and edits, all audited |
 
-**Judge scenarios** live under 🎬 *Demo controls* in the audit panel: *"Another buyer takes the hamper"* (out-of-stock discovered at checkout), *"Force decline"* (failed payment with intact-order retry), *"Run cart-recovery campaign"*, *"Tamper with ledger"* (watch the chain verdict flip), *"Reset session"*.
+**Judge scenarios** live under *Demo controls* in the audit panel: *"Another buyer takes the hamper"* (out-of-stock discovered at checkout), *"Force decline"* (failed payment with intact-order retry), *"Run cart-recovery campaign"*, *"Tamper with ledger"* (watch the chain verdict flip), *"Reset session"*.
 
 ### 2 · As an AI buyer — consume the merchant API
 
@@ -116,8 +116,8 @@ Every response carries `.state` (cart, totals, pending order, session spend) so 
 | **Explainable** | Every action carries explanation + reasoning shown in the chat and audit UI: why this upsell, why this discount, why a refusal. Coupon clamps are itemized (SAVE30 advertises 30% but policy caps at 20%). |
 | **Bounded** | `server/guardrails.js` — ≤ ₹5,000/order, ≤ ₹15,000/session, ≤ 5/SKU, ≤ 20 items/cart, coupons ≤ 20% and ≤ ₹1,000, stock re-checked at checkout. Both the agent path and the human UI path call the same checks. |
 | **Gated** | checkout only drafts an order. Capture runs through `checkPaymentGate()`: a pending order + a single-use token + `userGate=true` — a flag only the Pay button's endpoint (`/api/confirm`) ever sets. Ask the agent "yes, pay now" and it must refuse; the refusal is audited as `gate_denied`. |
-| **Audit trail** | `server/audit.js` — a hash-chained ledger (each event's SHA-256 binds the previous hash; canonical JSON, stable across runs), mirrored to `data/audit.jsonl`. "Verify ledger" recomputes the chain; the 🧨 demo control corrupts it and the UI flips to 💥 BROKEN. |
-| **Failure handled gracefully** | Two judge-driven scenarios in 🎬 Demo controls: (a) forced decline — the bank refuses, nothing is charged, the order stays intact and a retry on the same order succeeds; (b) out-of-stock mid-session — another buyer takes the last hamper, checkout re-verifies stock and blocks with a recovery message. There is also a third: bad payment signatures are refused as security events. |
+| **Audit trail** | `server/audit.js` — a hash-chained ledger (each event's SHA-256 binds the previous hash; canonical JSON, stable across runs), mirrored to `data/audit.jsonl`. "Verify ledger" recomputes the chain; the tamper demo control corrupts it and the UI flips to BROKEN. |
+| **Failure handled gracefully** | Two judge-driven scenarios in Demo controls: (a) forced decline — the bank refuses, nothing is charged, the order stays intact and a retry on the same order succeeds; (b) out-of-stock mid-session — another buyer takes the last hamper, checkout re-verifies stock and blocks with a recovery message. There is also a third: bad payment signatures are refused as security events. |
 
 ---
 
@@ -129,8 +129,8 @@ Every response carries `.state` (cart, totals, pending order, session spend) so 
 4. `yes, pay now` → refused by the structural gate — watch the red `gate_denied` event land in the audit trail.
 5. Tick *Force decline* → press Pay → honest failure, nothing charged, order intact.
 6. Untick → press Pay → paid. Stock decrements, session spend ledger updates, receipt opens.
-7. 🎬 *Another buyer takes the hamper* → checkout → graceful out-of-stock recovery.
-8. 🔍 *Verify ledger* → chain intact. 🧨 *Tamper* → verify again → 💥 broken at #N.
+7. *Another buyer takes the hamper* → checkout → graceful out-of-stock recovery.
+8. *Verify ledger* → chain intact. *Tamper* → verify again → broken at #N.
 
 ---
 

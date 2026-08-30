@@ -9,7 +9,7 @@ import ReceiptDialog from './components/ReceiptDialog.jsx';
 const WELCOME = {
   role: 'agent',
   text:
-    "Namaste! I'm the **MasalaMart growth agent** 🛵\nI find products, build your cart, apply coupons and draft your order — and every money move I make is **explained, bounded and audited** (watch the right panel).\n\nI can't charge you: payment happens only when **you** press Pay.",
+    "Namaste! I'm the **MasalaMart growth agent**.\nI find products, build your cart, apply coupons and draft your order — and every money move I make is **explained, bounded and audited** (watch the right panel).\n\nI can't charge you: payment happens only when **you** press Pay.",
   intent: null,
 };
 
@@ -84,17 +84,17 @@ export default function App() {
       await api('/api/dev/set-stock', { sku: 'gift-hamper', qty: 0 });
       await refreshCatalog();
       await refreshAudit();
-      pushMessage({ role: 'agent', intent: 'demo', via: 'system', status: 'ok', text: '🎬 Demo: **another buyer just took the last Festive Gift Hamper** (stock → 0). Now try **checkout** to watch the agent handle the out-of-stock failure gracefully.' });
+      pushMessage({ role: 'agent', intent: 'demo', via: 'system', status: 'ok', text: 'Demo: **another buyer just took the last Festive Gift Hamper** (stock → 0). Now try **checkout** to watch the agent handle the out-of-stock failure gracefully.' });
     } else if (kind === 'campaign') {
       const r = await api('/api/campaigns/run', {});
       pushMessage({ role: 'agent', intent: 'campaign.run', via: 'system', status: 'ok', text: r.issuedCount
-        ? `📣 Cart-recovery campaign ran: ${r.issuedCount} coupon(s) issued (${r.issued.map((x) => x.code).join(', ')}). Carts idle > ${Math.round(r.idleThresholdMs / 1000)}s were targeted, one issue per session max.`
-        : `📣 Campaign ran — no eligible carts (needs a cart idle > ${Math.round(r.idleThresholdMs / 1000)}s with no coupon yet).` });
+        ? `Cart-recovery campaign ran: ${r.issuedCount} coupon(s) issued (${r.issued.map((x) => x.code).join(', ')}). Carts idle > ${Math.round(r.idleThresholdMs / 1000)}s were targeted, one issue per session max.`
+        : `Campaign ran — no eligible carts (needs a cart idle > ${Math.round(r.idleThresholdMs / 1000)}s with no coupon yet).` });
       await refreshAudit();
     } else if (kind === 'tamper') {
       await api('/api/dev/tamper', {});
       await refreshAudit();
-      pushMessage({ role: 'agent', intent: 'demo', via: 'system', status: 'ok', text: '🧨 Demo: the newest ledger event was rewritten in place. The header pill now shows the chain is **broken** — tampering is detectable by construction.' });
+      pushMessage({ role: 'agent', intent: 'demo', via: 'system', status: 'ok', text: 'Demo: the newest ledger event was rewritten in place. The header pill now shows the chain is **broken** — tampering is detectable by construction.' });
     } else if (kind === 'reset') {
       sessionStorage.removeItem('mm_sess');
       setToken(null);

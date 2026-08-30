@@ -10,7 +10,6 @@ export const PRODUCTS = [
   {
     sku: 'tea-masala',
     title: 'Masala Chai — Assam CTC, 250g',
-    emoji: '🍵',
     category: 'tea',
     pricePaise: 24_900,
     stock: 42,
@@ -22,7 +21,6 @@ export const PRODUCTS = [
   {
     sku: 'tea-darjeeling',
     title: 'Darjeeling First Flush, 100g',
-    emoji: '🍃',
     category: 'tea',
     pricePaise: 44_900,
     stock: 18,
@@ -34,7 +32,6 @@ export const PRODUCTS = [
   {
     sku: 'coffee-filter',
     title: 'Filter Coffee — Peaberry Blend, 500g',
-    emoji: '☕',
     category: 'coffee',
     pricePaise: 39_900,
     stock: 25,
@@ -46,7 +43,6 @@ export const PRODUCTS = [
   {
     sku: 'coffee-beans',
     title: 'Arabica Beans — Chikmagalur, 250g',
-    emoji: '🫘',
     category: 'coffee',
     pricePaise: 54_900,
     stock: 12,
@@ -58,7 +54,6 @@ export const PRODUCTS = [
   {
     sku: 'spice-garam',
     title: 'Garam Masala — Stone Ground, 100g',
-    emoji: '🌶️',
     category: 'spice',
     pricePaise: 19_900,
     stock: 60,
@@ -70,7 +65,6 @@ export const PRODUCTS = [
   {
     sku: 'spice-box',
     title: 'Stainless Steel Spice Box — 7 Tins',
-    emoji: '🫙',
     category: 'kitchen',
     pricePaise: 89_900,
     stock: 8,
@@ -82,7 +76,6 @@ export const PRODUCTS = [
   {
     sku: 'cookie-butter',
     title: 'Butter Cookies — Bakery Style, 400g',
-    emoji: '🍪',
     category: 'biscuit',
     pricePaise: 17_900,
     stock: 80,
@@ -94,7 +87,6 @@ export const PRODUCTS = [
   {
     sku: 'honey-wild',
     title: 'Wild Forest Honey, 500g',
-    emoji: '🍯',
     category: 'pantry',
     pricePaise: 34_900,
     stock: 30,
@@ -106,7 +98,6 @@ export const PRODUCTS = [
   {
     sku: 'mug-kulhad',
     title: 'Ceramic Kulhad Cups — Set of 6',
-    emoji: '🥛',
     category: 'kitchen',
     pricePaise: 29_900,
     stock: 15,
@@ -118,7 +109,6 @@ export const PRODUCTS = [
   {
     sku: 'gift-hamper',
     title: 'Festive Gift Hamper — Chai & Coffee',
-    emoji: '🎁',
     category: 'hamper',
     pricePaise: 149_900,
     stock: 1, // intentionally scarce: powers the out-of-stock-at-checkout demo
@@ -207,7 +197,6 @@ export function buildAgentCatalog() {
     products: PRODUCTS.map((p) => ({
       sku: p.sku,
       title: p.title,
-      emoji: p.emoji,
       description: p.description,
       category: p.category,
       price_paise: p.pricePaise,

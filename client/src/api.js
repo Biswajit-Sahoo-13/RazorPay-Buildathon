@@ -3,6 +3,11 @@
 export const inr = (p) =>
   '₹' + (p / 100).toLocaleString('en-IN', { maximumFractionDigits: 2 });
 
+/** Two-letter monogram from a product title — replaces emoji imagery. */
+export function initials(title) {
+  return (String(title).match(/[A-Za-z]/g) || []).slice(0, 2).join('').toUpperCase() || 'MM';
+}
+
 export function getSessionId() {
   let id = sessionStorage.getItem('mm_sess');
   if (!id) {

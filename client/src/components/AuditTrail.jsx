@@ -61,10 +61,10 @@ export default function AuditTrail({ audit, filter, setFilter, onDemo }) {
       <details className="demo-controls">
         <summary><FlaskConical /> Demo controls — judge scenarios</summary>
         <div className="demo-grid">
-          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('stock')}>👋 Another buyer takes the hamper</button>
-          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('campaign')}>📣 Run cart-recovery campaign</button>
-          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('tamper')}>🧨 Tamper with ledger</button>
-          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('reset')}>♻️ Reset session</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('stock')}>Another buyer takes the hamper</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('campaign')}>Run cart-recovery campaign</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('tamper')}>Tamper with ledger</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => onDemo('reset')}>Reset session</button>
         </div>
       </details>
 

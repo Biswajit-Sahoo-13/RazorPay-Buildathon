@@ -253,7 +253,7 @@ server.on('error', (err) => {
   }
 });
 server.listen(port, () => {
-  console.log(`\n🛵 ${CONFIG.merchant.name} agentic storefront`);
+  console.log(`\n${CONFIG.merchant.name} agentic storefront`);
   console.log(`   UI:        http://localhost:${port}/`);
   console.log(`   Catalog:   http://localhost:${port}/catalog.json  (agent-readable)`);
   console.log(`   Provider:  ${provider.label}${llm ? `  ·  NLU: ${llm.name}` : '  ·  NLU: deterministic rules'}`);

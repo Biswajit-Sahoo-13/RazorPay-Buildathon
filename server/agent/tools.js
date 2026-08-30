@@ -32,9 +32,9 @@ export function createTools({ store, audit, provider }) {
       ok: true,
       status: 'ok',
       message: results.length
-        ? results.map((r) => `${r.emoji} **${r.title}** — ${formatINR(r.pricePaise)} (${r.stock} in stock)`).join('\n')
+        ? results.map((r) => `**${r.title}** — ${formatINR(r.pricePaise)} (${r.stock} in stock)`).join('\n')
         : 'Nothing matched. Try "tea", "coffee", "gift under 500"…',
-      data: { results: results.map((r) => ({ sku: r.sku, title: r.title, pricePaise: r.pricePaise, emoji: r.emoji, stock: r.stock })) },
+      data: { results: results.map((r) => ({ sku: r.sku, title: r.title, pricePaise: r.pricePaise, stock: r.stock })) },
     };
   }
 
@@ -77,7 +77,7 @@ export function createTools({ store, audit, provider }) {
     return {
       ok: true,
       status: 'ok',
-      message: `Added ${qty} × ${product.emoji} **${product.title}** — ${formatINR(line.linePaise)}. Cart total: **${formatINR(totals.totalPaise)}**.`,
+      message: `Added ${qty} × **${product.title}** — ${formatINR(line.linePaise)}. Cart total: **${formatINR(totals.totalPaise)}**.`,
       data: { totals, bounds: gate.checks },
     };
   }
@@ -128,7 +128,7 @@ export function createTools({ store, audit, provider }) {
         const c = p(cSku);
         if (c && !inCart(cSku) && c.stock > 0) {
           proposals.push({
-            sku: cSku, title: c.title, emoji: c.emoji, pricePaise: c.pricePaise,
+            sku: cSku, title: c.title, pricePaise: c.pricePaise,
             pitch: `Pairs with your ${seed.title} — bought together by 68% of ${c.category} buyers.`,
             rule: `complements[${seed.sku}]`,
           });
@@ -147,7 +147,7 @@ export function createTools({ store, audit, provider }) {
           .sort((a, b) => b.pricePaise - a.pricePaise)[0];
         if (cheapest) {
           proposals.push({
-            sku: cheapest.sku, title: cheapest.title, emoji: cheapest.emoji, pricePaise: cheapest.pricePaise,
+            sku: cheapest.sku, title: cheapest.title, pricePaise: cheapest.pricePaise,
             pitch: `${formatINR(gap)} short of free shipping — this closes the gap and saves the ${formatINR(CONFIG.shipping.flatPaise)} fee.`,
             rule: 'free_shipping_nudge',
           });
@@ -209,7 +209,7 @@ export function createTools({ store, audit, provider }) {
     return {
       ok: true,
       status: 'ok',
-      message: `Applied **${offer.code}** — ${offer.description} Discount: −${formatINR(totals.discountPaise)}.${clampNote ? `\n⚠️ Clamped by policy: ${clampNote}` : ''} Payable: **${formatINR(totals.totalPaise)}**.`,
+      message: `Applied **${offer.code}** — ${offer.description} Discount: −${formatINR(totals.discountPaise)}.${clampNote ? `\nClamped by policy: ${clampNote}` : ''} Payable: **${formatINR(totals.totalPaise)}**.`,
       data: { totals },
     };
   }
@@ -236,7 +236,7 @@ export function createTools({ store, audit, provider }) {
         bounds: gate.checks,
       });
       const message = oos.length
-        ? `⚠️ While you were shopping, stock ran out on: ${oos.map((f) => f.detail).join(' ')}\nNothing was charged. I can drop the sold-out item and re-checkout, or suggest an alternative — say "fix my cart".`
+        ? `While you were shopping, stock ran out on: ${oos.map((f) => f.detail).join(' ')}\nNothing was charged. I can drop the sold-out item and re-checkout, or suggest an alternative — say "fix my cart".`
         : `I can't check out: ${failed.map((f) => f.detail).join(' ')}`;
       return { ok: false, status: 'blocked', message, data: { bounds: gate.checks } };
     }
@@ -336,7 +336,7 @@ export function createTools({ store, audit, provider }) {
       return {
         ok: false,
         status: 'failed',
-        message: `⚠️ The bank declined your payment (simulated failure). **Nothing was charged.** Your order of ${formatINR(order.totalPaise)} is intact — press **Pay** to retry, or say "remove one item" to try a smaller basket.`,
+        message: `The bank declined your payment (simulated failure). **Nothing was charged.** Your order of ${formatINR(order.totalPaise)} is intact — press **Pay** to retry, or say "remove one item" to try a smaller basket.`,
         data: { order: publicOrder(order) },
       };
     }
@@ -352,7 +352,7 @@ export function createTools({ store, audit, provider }) {
         reasoning: 'A payment is real only if its HMAC signature matches; mismatches are security events.',
         payload: { orderId: order.orderId, paymentId: attempt.paymentId },
       });
-      return { ok: false, status: 'failed', message: '⚠️ Payment signature verification failed — I will not capture this payment. Please retry.' };
+      return { ok: false, status: 'failed', message: 'Payment signature verification failed — I will not capture this payment. Please retry.' };
     }
 
     // Captured. Settle: stock, spend ledger, cart, token.
@@ -381,7 +381,7 @@ export function createTools({ store, audit, provider }) {
     return {
       ok: true,
       status: 'ok',
-      message: `✅ **Paid ${formatINR(order.totalPaise)}** — order ${order.orderId} confirmed (${attempt.paymentId}).\nAgent-readable receipt: \`/api/receipt/${order.orderId}\``,
+      message: `**Paid ${formatINR(order.totalPaise)}** — order ${order.orderId} confirmed (${attempt.paymentId}).\nAgent-readable receipt: \`/api/receipt/${order.orderId}\``,
       data: { order: publicOrder(order), receiptPath: `/api/receipt/${order.orderId}` },
     };
   }
@@ -406,7 +406,7 @@ export function createTools({ store, audit, provider }) {
     return {
       ok: true,
       status: 'ok',
-      message: `${product.emoji} **${product.title}** — ${formatINR(product.pricePaise)}, ${product.stock} in stock.\n${product.description}`,
+      message: `**${product.title}** — ${formatINR(product.pricePaise)}, ${product.stock} in stock.\n${product.description}`,
     };
   }
 

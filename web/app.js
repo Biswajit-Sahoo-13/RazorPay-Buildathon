@@ -25,6 +25,7 @@ async function api(path, body = null) {
 }
 
 const inr = (p) => '₹' + (p / 100).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+const initials = (t) => (String(t).match(/[A-Za-z]/g) || []).slice(0, 2).join('').toUpperCase() || 'MM';
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -49,7 +50,7 @@ function bubble(kind, html) {
 }
 
 function chipFor(intent, via, status) {
-  const label = { ok: '✓', blocked: '⛔', failed: '⚠', gate_denied: '🚫' }[status] ?? '·';
+  const label = { ok: 'ok', blocked: 'blocked', failed: 'failed', gate_denied: 'refused' }[status] ?? '·';
   return `<span class="action-chip ${status}">${label} ${esc(intent)} · via ${esc(via)} · ${esc(status)}</span>`;
 }
 
@@ -61,7 +62,7 @@ function renderProposals(proposals) {
     .map(
       (p) => `
       <div class="proposal" data-sku="${esc(p.sku)}">
-        <div class="emoji">${p.emoji}</div>
+        <div class="emoji mono">${initials(p.title)}</div>
         <div>
           <h4>${esc(p.title)} — ${inr(p.pricePaise)}</h4>
           <p class="pitch">${esc(p.pitch)}</p>
@@ -100,7 +101,7 @@ async function sendMessage(text) {
 function updateState(state) {
   const t = state.totals;
   $('cart-lines').innerHTML = t.items.length
-    ? t.items.map((i) => `<p>${i.qty} × ${i.emoji} ${esc(i.title)} <span class="muted">· ${inr(i.linePaise)}</span></p>`).join('')
+    ? t.items.map((i) => `<p>${i.qty} × ${esc(i.title)} <span class="muted">· ${inr(i.linePaise)}</span></p>`).join('')
     : '<p class="muted">Cart is empty.</p>';
 
   $('cart-math').innerHTML = t.items.length
@@ -166,7 +167,7 @@ function renderCatalog() {
       const stockCls = p.stock === 0 ? 'out' : p.stock <= 5 ? 'low' : '';
       const stockTxt = p.stock === 0 ? 'Sold out' : p.stock <= 5 ? `Only ${p.stock} left` : `${p.stock} in stock`;
       return `<div class="product">
-        <div class="emoji">${p.emoji}</div>
+        <div class="emoji mono">${initials(p.title)}</div>
         <div>
           <h3>${esc(p.title)}</h3>
           <p class="desc">${esc(p.description)}</p>
@@ -220,10 +221,10 @@ async function refreshAudit() {
   const pill = $('chain-status');
   if (verify.valid) {
     pill.className = 'pill pill-ok';
-    pill.textContent = `🔗 chain intact · ${verify.count} events`;
+    pill.textContent = `chain intact · ${verify.count} events`;
   } else {
     pill.className = 'pill pill-bad';
-    pill.textContent = `💥 chain BROKEN at #${verify.brokenAt}`;
+    pill.textContent = `chain BROKEN at #${verify.brokenAt}`;
   }
 }
 
@@ -232,7 +233,7 @@ async function demoStock() {
   await api('/api/dev/set-stock', { sku: 'gift-hamper', qty: 0 });
   refreshCatalog();
   refreshAudit();
-  bubble('agent', md('🎬 Demo: **another buyer just took the last Festive Gift Hamper** (stock → 0). Now try **checkout** to watch the agent handle the out-of-stock failure gracefully.'));
+  bubble('agent', md('Demo: **another buyer just took the last Festive Gift Hamper** (stock → 0). Now try **checkout** to watch the agent handle the out-of-stock failure gracefully.'));
 }
 
 async function demoCampaign() {
@@ -241,8 +242,8 @@ async function demoCampaign() {
     'agent',
     md(
       r.issuedCount
-        ? `📣 Cart-recovery campaign ran: ${r.issuedCount} coupon(s) issued (${r.issued.map((x) => x.code).join(', ')}). Carts idle > ${Math.round(r.idleThresholdMs / 1000)}s were targeted, one issue per session max.`
-        : `📣 Campaign ran — no eligible carts (needs a cart idle > ${Math.round(r.idleThresholdMs / 1000)}s, no coupon yet).`
+        ? `Cart-recovery campaign ran: ${r.issuedCount} coupon(s) issued (${r.issued.map((x) => x.code).join(', ')}). Carts idle > ${Math.round(r.idleThresholdMs / 1000)}s were targeted, one issue per session max.`
+        : `Campaign ran — no eligible carts (needs a cart idle > ${Math.round(r.idleThresholdMs / 1000)}s, no coupon yet).`
     ) + `<br>${chipFor('campaign.run', 'system', 'ok')}`
   );
   refreshAudit();
@@ -252,7 +253,7 @@ async function demoCampaign() {
 async function demoTamper() {
   await api('/api/dev/tamper', {});
   refreshAudit();
-  bubble('agent', md('🧨 Demo: the newest ledger event was rewritten in place. The **Verify ledger** button (and the header pill) now shows the chain is broken — tampering is detectable by construction.'));
+  bubble('agent', md('Demo: the newest ledger event was rewritten in place. The **Verify ledger** button (and the header pill) now shows the chain is broken — tampering is detectable by construction.'));
 }
 
 async function demoReset() {
@@ -269,7 +270,7 @@ function welcome() {
   bubble(
     'agent',
     md(
-      "Namaste! I'm the **MasalaMart growth agent** 🛵\nI can find products, build your cart, apply coupons and draft your order — and every money move I make is **explained, bounded and audited** (watch the right panel).\n\nI can't charge you: payment happens only when **you** press Pay. Try *" +
+      "Namaste! I'm the **MasalaMart growth agent**\nI can find products, build your cart, apply coupons and draft your order — and every money move I make is **explained, bounded and audited** (watch the right panel).\n\nI can't charge you: payment happens only when **you** press Pay. Try *" +
         'gift under 500*' +
         ' or *"add 2 masala chai".*'
     )

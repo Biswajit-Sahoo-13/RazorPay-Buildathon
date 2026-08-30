@@ -60,4 +60,4 @@
 | 1:40 | type `checkout` then `yes, pay now` | red `gate_denied` event (actor: agent) |
 | 2:40 | Force decline → Pay → untick → Pay | `money.payment_failed` → `money.payment_captured`, receipt dialog |
 | 3:35 | open `/catalog.json` | `policies.agent_bounds` + `how_to_buy` |
-| 4:05 | Verify → Tamper → Verify | pill: 🔗 intact → 💥 BROKEN at #N |
+| 4:05 | Verify → Tamper → Verify | pill: intact → BROKEN at #N |

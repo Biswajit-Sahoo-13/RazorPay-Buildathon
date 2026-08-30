@@ -111,5 +111,5 @@ try {
 }
 
 const failedCount = results.filter((r) => !r.ok).length;
-console.log(`\n${failedCount === 0 ? '✅ SMOKE PASS' : '❌ SMOKE FAIL'} — ${results.length - failedCount}/${results.length} checks passed\n`);
+console.log(`\n${failedCount === 0 ? 'SMOKE PASS' : 'SMOKE FAIL'} — ${results.length - failedCount}/${results.length} checks passed\n`);
 process.exit(failedCount === 0 ? 0 : 1);
