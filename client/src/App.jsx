@@ -25,7 +25,9 @@ export default function App() {
   const [receipt, setReceipt] = useState(null);
 
   const refreshAudit = useCallback(async () => {
-    const data = await api(`/api/audit?limit=150`);
+    // Session-scoped trail; the header pill's verify verdict stays global
+    // (one hash chain spans every session in the store).
+    const data = await api(`/api/audit?sessionId=${encodeURIComponent(getSessionId())}&limit=150`);
     setAudit(data);
   }, []);
 

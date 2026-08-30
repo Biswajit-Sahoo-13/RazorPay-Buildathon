@@ -51,7 +51,7 @@ export default function AuditTrail({ audit, filter, setFilter, onDemo }) {
   return (
     <section className="panel audit-panel">
       <div className="panel-head">
-        <span className="panel-title"><ScrollText /> Audit Trail</span>
+        <span className="panel-title"><ScrollText /> Audit Trail <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>· this session</span></span>
         <span className={`pill ${audit.verify?.valid ? 'ok' : 'bad'}`}>
           {audit.verify?.valid ? <ShieldCheck /> : <X />}
           {audit.verify?.valid ? `chain intact · ${audit.verify.count}` : `BROKEN at #${audit.verify?.brokenAt}`}
