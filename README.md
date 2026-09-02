@@ -8,7 +8,12 @@ An agent that **grows a merchant's revenue** and makes the merchant **transactab
 
 Zero npm dependencies on the server. Runs offline in one command.
 
-**Watch the demo:** [`docs/demo/masalamart-demo.webm`](docs/demo/masalamart-demo.webm) — a scripted screen walkthrough of the full judge journey (buy → coupon clamp → gate refusal → decline & retry → paid → out-of-stock → campaign → tamper detection), recorded against this exact build. Narration script: [`docs/PITCH.md`](docs/PITCH.md).
+**Watch the demo (3 min, captioned MP4):**
+- [With background music](docs/demo/masalamart-demo-captions-music.mp4)
+- [Without music](docs/demo/masalamart-demo-captions.mp4)
+- [Raw screen recording (WebM)](docs/demo/masalamart-demo.webm)
+
+The walkthrough covers the full judge journey — buy, coupon clamp, gate refusal, decline & retry, paid receipt, out-of-stock recovery, cart-recovery campaign, and ledger tamper detection — recorded against this exact build. Narration script: [`docs/PITCH.md`](docs/PITCH.md).
 
 | Storefront | The agent selling |
 | --- | --- |
